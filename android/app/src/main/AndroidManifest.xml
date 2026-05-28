@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="crypto_insight_dashboard"
-        android:name="Crypto Insight Dashboard"
+        android:label="Crypto Insight Dashboard"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
