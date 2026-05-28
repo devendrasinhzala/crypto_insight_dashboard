@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_paddings.dart';
 import '../../../../core/constants/app_radius.dart';
-import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 
 class WalletActionButton extends StatelessWidget {
   final String title;
-  final IconData icon;
+  final String icon;
 
   const WalletActionButton({
     super.key,
@@ -26,7 +25,7 @@ class WalletActionButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: AppColors.white, size: 18),
+          Image.asset(icon, height: 18, width: 18),
           const SizedBox(width: 6),
           Text(
             title,

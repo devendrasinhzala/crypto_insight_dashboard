@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_paddings.dart';
+import '../../../../core/constants/app_images.dart';
 import '../../../../core/constants/app_radius.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
@@ -17,10 +18,14 @@ class WalletCard extends StatelessWidget {
       padding: AppPaddings.card,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppRadius.xxl),
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [AppColors.secondary, AppColors.primary],
+        gradient: const RadialGradient(
+          center: Alignment.center,
+          radius: -0.3,
+          transform: GradientRotation(20),
+          stops: [0.0, 1],
+          focal: AlignmentGeometry.center,
+          focalRadius: 1,
+          colors: [AppColors.primary, AppColors.secondary],
         ),
       ),
       child: Column(
@@ -38,16 +43,15 @@ class WalletCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(AppRadius.lg),
                 ),
                 child: Row(
-                  children: const [
+                  children: [
                     Text(
                       AppStrings.usd,
-                      style: TextStyle(
-                        color: AppColors.white,
+                      style: AppTextStyles.whiteMedium.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(width: AppSizes.xxs),
-                    Icon(
+                    const SizedBox(width: AppSizes.xxs),
+                    const Icon(
                       Icons.keyboard_arrow_down,
                       color: AppColors.white,
                       size: 18,
@@ -69,21 +73,21 @@ class WalletCard extends StatelessWidget {
               Expanded(
                 child: WalletActionButton(
                   title: AppStrings.transfer,
-                  icon: Icons.north_east_rounded,
+                  icon: AppImages.moneySend,
                 ),
               ),
               SizedBox(width: AppSizes.md),
               Expanded(
                 child: WalletActionButton(
                   title: AppStrings.deposit,
-                  icon: Icons.south_west_rounded,
+                  icon: AppImages.moneyReceive,
                 ),
               ),
               SizedBox(width: AppSizes.md),
               Expanded(
                 child: WalletActionButton(
                   title: AppStrings.swap,
-                  icon: Icons.swap_horiz_rounded,
+                  icon: AppImages.bitcoinConvert,
                 ),
               ),
             ],

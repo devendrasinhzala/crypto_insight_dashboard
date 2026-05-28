@@ -23,6 +23,11 @@ RouteBase get $mainShellRouteData => StatefulShellRouteData.$route(
               name: 'coinDetails',
               factory: $CoinDetailsRouteData._fromState,
             ),
+            GoRouteData.$route(
+              path: 'summary',
+              name: 'summary',
+              factory: $SummaryRouteData._fromState,
+            ),
           ],
         ),
       ],
@@ -92,6 +97,27 @@ mixin $CoinDetailsRouteData on GoRouteData {
   @override
   String get location =>
       GoRouteData.$location('/dashboard/coin/${Uri.encodeComponent(_self.id)}');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $SummaryRouteData on GoRouteData {
+  static SummaryRouteData _fromState(GoRouterState state) =>
+      const SummaryRouteData();
+
+  @override
+  String get location => GoRouteData.$location('/dashboard/summary');
 
   @override
   void go(BuildContext context) => context.go(location);

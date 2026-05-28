@@ -1,5 +1,6 @@
 import 'package:crypto_insight_dashboard/modules/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:crypto_insight_dashboard/modules/details/presentation/screens/coin_details_screen.dart';
+import 'package:crypto_insight_dashboard/modules/summary/presentation/screens/summary_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +10,7 @@ import '../di/injection_container.dart';
 import '../../modules/dashboard/presentation/bloc/dashboard_bloc.dart';
 import '../../modules/details/presentation/bloc/coin_details_cubit.dart';
 import '../../modules/navigation/presentation/main_screen.dart';
+import '../../modules/summary/presentation/cubit/summary_cubit.dart';
 
 part 'app_router.g.dart';
 
@@ -17,12 +19,14 @@ class AppRouteConstants {
 
   static const String dashboardName = 'dashboard';
   static const String coinDetailsName = 'coinDetails';
+  static const String summaryName = 'summary';
   static const String walletName = 'wallet';
   static const String tradesName = 'trades';
   static const String portfolioName = 'portfolio';
 
   static const String dashboardPath = '/dashboard';
   static const String coinDetailsPath = 'coin/:id';
+  static const String summaryPath = 'summary';
   static const String walletPath = '/wallet';
   static const String tradesPath = '/trades';
   static const String portfolioPath = '/portfolio';
@@ -39,6 +43,10 @@ class AppRouteConstants {
             TypedGoRoute<CoinDetailsRouteData>(
               path: AppRouteConstants.coinDetailsPath,
               name: AppRouteConstants.coinDetailsName,
+            ),
+            TypedGoRoute<SummaryRouteData>(
+              path: AppRouteConstants.summaryPath,
+              name: AppRouteConstants.summaryName,
             ),
           ],
         ),
@@ -121,6 +129,18 @@ class CoinDetailsRouteData extends GoRouteData with $CoinDetailsRouteData {
     return BlocProvider<CoinDetailsCubit>(
       create: (_) => sl<CoinDetailsCubit>(),
       child: CoinDetailsScreen(coinId: id),
+    );
+  }
+}
+
+class SummaryRouteData extends GoRouteData with $SummaryRouteData {
+  const SummaryRouteData();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return BlocProvider<SummaryCubit>(
+      create: (_) => sl<SummaryCubit>()..loadSummary(),
+      child: const SummaryScreen(),
     );
   }
 }

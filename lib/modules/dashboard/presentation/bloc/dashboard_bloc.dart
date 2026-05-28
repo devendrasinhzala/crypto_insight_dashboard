@@ -4,8 +4,8 @@ import '../../../../core/constants/app_constants.dart';
 import '../../domain/entities/coin_entity.dart';
 import '../../domain/usecases/fetch_coins_usecase.dart';
 import '../../domain/usecases/get_cached_coins_usecase.dart';
-import '../../domain/usecases/get_recently_viewed_coins_usecase.dart';
-import '../../domain/usecases/save_recently_viewed_coin_usecase.dart';
+import '../../../shared/recently_viewed/domain/usecases/get_recently_viewed_coins_usecase.dart';
+import '../../../shared/recently_viewed/domain/usecases/save_recently_viewed_coin_usecase.dart';
 import 'dashboard_event.dart';
 import 'dashboard_state.dart';
 
@@ -27,7 +27,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     required this.getRecentlyViewedCoinsUseCase,
     required this.saveRecentlyViewedCoinUseCase,
   }) : super(const DashboardState.initial()) {
-
     on<DashboardEvent>(_onDashboardEvent);
   }
 
@@ -35,7 +34,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     DashboardEvent event,
     Emitter<DashboardState> emit,
   ) async {
-
     await event.when(
       fetchCoin: () async {
         if (_isFetching || !_hasMore) {
@@ -86,11 +84,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             ),
           );
         } catch (e) {
-          emit(
-            DashboardState.error(
-              message: e.toString(),
-            ),
-          );
+          emit(DashboardState.error(message: e.toString()));
         } finally {
           _isFetching = false;
         }
@@ -125,11 +119,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             ),
           );
         } catch (e) {
-          emit(
-            DashboardState.error(
-              message: e.toString(),
-            ),
-          );
+          emit(DashboardState.error(message: e.toString()));
         } finally {
           _isFetching = false;
         }
@@ -147,11 +137,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             );
             return;
           }
-          final coins = _allCoins.where((coin) {
-            return coin.name.toLowerCase().contains(normalizedQuery) ||
-                coin.symbol.toLowerCase().contains(normalizedQuery) ||
-                coin.id.toLowerCase().contains(normalizedQuery);
-          }).toList(growable: false);
+          final coins = _allCoins
+              .where((coin) {
+                return coin.name.toLowerCase().contains(normalizedQuery) ||
+                    coin.symbol.toLowerCase().contains(normalizedQuery) ||
+                    coin.id.toLowerCase().contains(normalizedQuery);
+              })
+              .toList(growable: false);
 
           emit(
             DashboardState.success(
@@ -160,11 +152,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             ),
           );
         } catch (e) {
-          emit(
-            DashboardState.error(
-              message: e.toString(),
-            ),
-          );
+          emit(DashboardState.error(message: e.toString()));
         }
       },
 

@@ -4,20 +4,13 @@ import '../models/coin_model.dart';
 
 abstract class DashboardLocalDataSource {
   Future<List<CoinModel>> getCachedCoins();
-  Future<List<CoinModel>> getRecentlyViewedCoins();
-  Future<void> cacheCoins({
-    required List<CoinModel> coins,
-    required int page,
-  });
-  Future<void> saveRecentlyViewedCoin(CoinModel coin);
+  Future<void> cacheCoins({required List<CoinModel> coins, required int page});
 }
 
 class DashboardLocalDataSourceImpl implements DashboardLocalDataSource {
   DashboardLocalDataSourceImpl(this._box);
 
   static const String coinsKey = 'coins';
-  static const String recentlyViewedKey = 'recently_viewed_coins';
-  static const int recentlyViewedLimit = 10;
 
   final Box<dynamic> _box;
 
@@ -51,28 +44,6 @@ class DashboardLocalDataSourceImpl implements DashboardLocalDataSource {
     );
   }
 
-  @override
-  Future<List<CoinModel>> getRecentlyViewedCoins() async {
-    return _readCoinsList(recentlyViewedKey);
-  }
-
-  @override
-  Future<void> saveRecentlyViewedCoin(CoinModel coin) async {
-    final current = await getRecentlyViewedCoins();
-    final updated = <CoinModel>[
-      coin,
-      ...current.where((item) => item.id != coin.id),
-    ];
-
-    await _box.put(
-      recentlyViewedKey,
-      updated
-          .take(recentlyViewedLimit)
-          .map((item) => item.toJson())
-          .toList(growable: false),
-    );
-  }
-
   List<CoinModel> _readCoinsList(String key) {
     final raw = _box.get(key);
     if (raw is! List) {
@@ -81,11 +52,8 @@ class DashboardLocalDataSourceImpl implements DashboardLocalDataSource {
 
     return raw
         .whereType<Map>()
-        .map((map) => map.map(
-              (k, v) => MapEntry(k.toString(), v),
-            ))
+        .map((map) => map.map((k, v) => MapEntry(k.toString(), v)))
         .map(CoinModel.fromJson)
         .toList(growable: false);
   }
 }
-

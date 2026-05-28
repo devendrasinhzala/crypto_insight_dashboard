@@ -16,11 +16,20 @@ class AppStrings {
   static const String swap = 'Swap';
 
   static const String recentlyViewed = 'Recently Viewed';
+  static const String summary = 'Summary';
+  static const String viewedCoinsSummary = 'Viewed Coins Summary';
+  static const String summaryNeedsMoreCoins =
+      'View 3 or more coins to see your summary.';
+  static const String coinsViewed = 'coins viewed';
+  static const String averagePrice = 'Average Price';
+  static const String bestPerformer = 'Best Performer';
+  static const String worstPerformer = 'Worst Performer';
   static const String trending = 'Trending';
   static const String up = 'UP';
   static const String down = 'DOWN';
 
   static const String details = 'Details';
+  static const String statistics = 'Statistics';
   static const String volatilityScore = 'Volatility Score';
   static const String marketCapRank = 'Market Cap Rank';
   static const String marketCap = 'Market Cap';
@@ -37,6 +46,10 @@ class AppStrings {
   static const String officialWebsite = 'Official Website';
   static const String whitepaper = 'Whitepaper';
   static const String graphPlaceholder = 'Price graph coming soon';
+  static const String today = 'Today';
+  static const String oneWeek = '1W';
+  static const String oneMonth = '1M';
+  static const String threeMonths = '3M';
+  static const String oneYear = '1Y';
   static const String noData = '-';
 }
-

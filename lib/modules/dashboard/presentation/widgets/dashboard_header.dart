@@ -78,7 +78,7 @@ class DashboardHeader extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(width: AppSizes.md),
+          const SizedBox(width: AppSizes.sm),
 
           Image(image: AssetImage(AppImages.notification)),
         ],

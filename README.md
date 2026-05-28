@@ -10,9 +10,11 @@ A Flutter application that displays cryptocurrency market insights with a clean 
 * Coin details screen
 * Volatility score calculation
 * Recent viewed coins
+* Summary screen after viewing 3 or more coins
 * Local persistence using Hive
 * Interactive price graph
 * Responsive Material 3 UI
+* Improved and polished UI design
 
 ---
 
@@ -53,4 +55,5 @@ The project follows:
 10. Added recent viewed section in dashboard
 11. Implemented Hive for local persistence
 12. Added graph in details screen
-13. Improved overall UI and responsiveness
+13. Added summary screen after viewing 3 or more coins
+14. Improved overall UI and responsiveness

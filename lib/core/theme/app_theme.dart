@@ -9,7 +9,6 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      fontFamily: 'SFProDisplay',
 
       scaffoldBackgroundColor: AppColors.scaffoldBackground,
 
@@ -19,21 +18,16 @@ class AppTheme {
         surface: AppColors.scaffoldBackground,
       ),
 
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: false,
         surfaceTintColor: Colors.transparent,
+        titleTextStyle: AppTextStyles.heading3,
       ),
 
-      textTheme: const TextTheme(
-        headlineLarge: AppTextStyles.heading1,
-        headlineMedium: AppTextStyles.heading2,
-        headlineSmall: AppTextStyles.heading3,
-        bodyLarge: AppTextStyles.bodyLarge,
-        bodyMedium: AppTextStyles.bodyMedium,
-        bodySmall: AppTextStyles.bodySmall,
-      ),
+      textTheme: AppTextStyles.textTheme,
+      primaryTextTheme: AppTextStyles.textTheme,
 
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
@@ -60,19 +54,14 @@ class AppTheme {
 
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(18),
-          borderSide: const BorderSide(
-            color: AppColors.primary,
-            width: 1.2,
-          ),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.2),
         ),
       ),
 
       cardTheme: CardThemeData(
         color: AppColors.cardBackground,
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
 
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(

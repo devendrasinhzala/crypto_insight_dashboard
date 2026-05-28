@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_images.dart';
-import '../../../core/constants/app_radius.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../core/theme/app_colors.dart';
 
@@ -84,7 +83,7 @@ class _BottomNavItem extends StatelessWidget {
               width: AppSizes.xs,
               height: AppSizes.xs,
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.secondary : AppColors.transparent,
+                color: isSelected ? AppColors.primary : AppColors.transparent,
                 shape: BoxShape.circle,
               ),
             ),

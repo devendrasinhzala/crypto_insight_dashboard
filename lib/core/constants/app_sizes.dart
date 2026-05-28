@@ -9,8 +9,7 @@ class AppSizes {
   static const double xl = 16;
   static const double xxl = 18;
   static const double xxxl = 20;
-  static const double sectionGap = 28;
+  static const double sectionGap = 16;
   static const double pageHorizontal = 20;
   static const double bottomSpace = 30;
 }
-

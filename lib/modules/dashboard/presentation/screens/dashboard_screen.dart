@@ -34,9 +34,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     _scrollController = ScrollController();
     _searchController = TextEditingController();
 
-    context.read<DashboardBloc>().add(
-          const DashboardEvent.fetchCoin(),
-        );
+    context.read<DashboardBloc>().add(const DashboardEvent.fetchCoin());
 
     _scrollController.addListener(_onScroll);
   }
@@ -44,16 +42,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 300) {
-      context.read<DashboardBloc>().add(
-            const DashboardEvent.fetchCoin(),
-          );
+      context.read<DashboardBloc>().add(const DashboardEvent.fetchCoin());
     }
   }
 
   Future<void> _onRefresh() async {
-    context.read<DashboardBloc>().add(
-          const DashboardEvent.refreshCoin(),
-        );
+    context.read<DashboardBloc>().add(const DashboardEvent.refreshCoin());
   }
 
   void _toggleSearchVisibility() {
@@ -63,8 +57,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     if (!_isSearchVisible) {
       _searchController.clear();
       context.read<DashboardBloc>().add(
-            const DashboardEvent.searchCoin(query: ''),
-          );
+        const DashboardEvent.searchCoin(query: ''),
+      );
     }
   }
 
@@ -85,13 +79,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             return state.when(
               initial: () => const SizedBox(),
 
-              loading: () => const Center(
-                child: CircularProgressIndicator(),
-              ),
+              loading: () => const Center(child: CircularProgressIndicator()),
 
-              error: (message) => Center(
-                child: Text(message),
-              ),
+              error: (message) => Center(child: Text(message)),
 
               success: (coins, recentlyViewed) {
                 return RefreshIndicator(
@@ -115,8 +105,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             searchController: _searchController,
                             onSearchChanged: (value) {
                               context.read<DashboardBloc>().add(
-                                    DashboardEvent.searchCoin(query: value),
-                                  );
+                                DashboardEvent.searchCoin(query: value),
+                              );
                             },
                             isSearchVisible: _isSearchVisible,
                             onSearchTap: _toggleSearchVisibility,
@@ -131,9 +121,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       /// WALLET CARD
                       const SliverPadding(
                         padding: AppPaddings.screenHorizontal,
-                        sliver: SliverToBoxAdapter(
-                          child: WalletCard(),
-                        ),
+                        sliver: SliverToBoxAdapter(child: WalletCard()),
                       ),
 
                       const SliverToBoxAdapter(
@@ -141,11 +129,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
 
                       if (recentlyViewed.isNotEmpty)
-                        const SliverPadding(
+                        SliverPadding(
                           padding: AppPaddings.screenHorizontal,
                           sliver: SliverToBoxAdapter(
                             child: SectionTitle(
                               title: AppStrings.recentlyViewed,
+                              trailing: recentlyViewed.length >= 3
+                                  ? TextButton(
+                                      onPressed: () {
+                                        const SummaryRouteData().push(context);
+                                      },
+                                      child: const Text(AppStrings.summary),
+                                    )
+                                  : null,
                             ),
                           ),
                         ),
@@ -170,17 +166,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   coin: coin,
                                   onTap: () {
                                     context.read<DashboardBloc>().add(
-                                          DashboardEvent.coinViewed(coin: coin),
-                                        );
-                                    CoinDetailsRouteData(id: coin.id)
-                                        .push(context);
+                                      DashboardEvent.coinViewed(coin: coin),
+                                    );
+                                    CoinDetailsRouteData(
+                                      id: coin.id,
+                                    ).push(context);
                                   },
                                 );
                               },
-                              separatorBuilder: (_, __) =>
+                              separatorBuilder: (context, index) =>
                                   const SizedBox(width: 16),
-                              itemCount:
-                                  recentlyViewed.length > 5 ? 5 : recentlyViewed.length,
+                              itemCount: recentlyViewed.length > 5
+                                  ? 5
+                                  : recentlyViewed.length,
                             ),
                           ),
                         ),
@@ -193,9 +191,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       const SliverPadding(
                         padding: AppPaddings.screenHorizontal,
                         sliver: SliverToBoxAdapter(
-                          child: SectionTitle(
-                            title: AppStrings.trending,
-                          ),
+                          child: SectionTitle(title: AppStrings.trending),
                         ),
                       ),
 
@@ -214,13 +210,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               coin: coin,
                               onTap: () {
                                 context.read<DashboardBloc>().add(
-                                      DashboardEvent.coinViewed(coin: coin),
-                                    );
+                                  DashboardEvent.coinViewed(coin: coin),
+                                );
                                 CoinDetailsRouteData(id: coin.id).push(context);
                               },
                             );
                           },
-                          separatorBuilder: (_, __) =>
+                          separatorBuilder: (context, index) =>
                               const SizedBox(height: 16),
                           itemCount: coins.length,
                         ),
@@ -233,10 +229,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       /// BOTTOM LOADER
                       const SliverToBoxAdapter(
                         child: Padding(
-                          padding: EdgeInsets.only(bottom: AppSizes.bottomSpace),
-                          child: Center(
-                            child: CircularProgressIndicator(),
+                          padding: EdgeInsets.only(
+                            bottom: AppSizes.bottomSpace,
                           ),
+                          child: Center(child: CircularProgressIndicator()),
                         ),
                       ),
                     ],
